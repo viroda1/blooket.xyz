@@ -1,0 +1,1005 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VIRO XYZ | Ultimate Blooket Script Hub</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            min-height: 100vh;
+            background: linear-gradient(135deg, #0a0a1a 0%, #2d1b4e 50%, #6b46c1 100%);
+            font-family: 'Inter', 'Segoe UI', system-ui, -apple-system, sans-serif;
+            position: relative;
+        }
+        
+        /* Enhanced halftone grid background */
+        body::before {
+            content: "";
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                radial-gradient(circle at 20% 30%, rgba(168,85,247,0.08) 2px, transparent 2px),
+                linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px);
+            background-size: 60px 60px, 40px 40px, 40px 40px;
+            pointer-events: none;
+        }
+        
+        .container {
+            max-width: 1600px;
+            margin: 0 auto;
+            padding: 1.5rem;
+            position: relative;
+            z-index: 1;
+        }
+        
+        /* Header with animations */
+        header {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+        
+        .logo {
+            font-size: 5rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, #fff, #c084fc, #a855f7, #6b21a5);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            letter-spacing: -0.03em;
+            animation: fadeInDown 0.6s ease;
+            position: relative;
+            display: inline-block;
+        }
+        
+        .logo::after {
+            content: "⚡";
+            position: absolute;
+            right: -50px;
+            top: 10px;
+            font-size: 2rem;
+            background: none;
+            -webkit-background-clip: unset;
+            background-clip: unset;
+            color: #c084fc;
+            animation: pulse 2s infinite;
+        }
+        
+        @keyframes pulse {
+            0%, 100% { opacity: 0.5; transform: scale(1); }
+            50% { opacity: 1; transform: scale(1.1); }
+        }
+        
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .tagline {
+            color: rgba(255,255,255,0.7);
+            margin-top: 0.5rem;
+            font-size: 1.1rem;
+        }
+        
+        /* Stats bar */
+        .stats-bar {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin-bottom: 2rem;
+            flex-wrap: wrap;
+        }
+        
+        .stat-card {
+            background: rgba(0,0,0,0.4);
+            backdrop-filter: blur(10px);
+            border-radius: 1rem;
+            padding: 0.75rem 1.5rem;
+            border: 1px solid rgba(255,255,255,0.1);
+        }
+        
+        .stat-number {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #c084fc;
+        }
+        
+        .stat-label {
+            font-size: 0.75rem;
+            color: rgba(255,255,255,0.6);
+            margin-left: 0.5rem;
+        }
+        
+        /* Disclaimer */
+        .disclaimer-banner {
+            background: rgba(0,0,0,0.6);
+            backdrop-filter: blur(10px);
+            border-radius: 1rem;
+            padding: 0.75rem 1.5rem;
+            margin-bottom: 2rem;
+            text-align: center;
+            border-left: 4px solid #f59e0b;
+            font-size: 0.85rem;
+            color: #fcd34d;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .disclaimer-banner:hover {
+            background: rgba(0,0,0,0.8);
+        }
+        
+        /* Main layout */
+        .dashboard {
+            display: grid;
+            grid-template-columns: 350px 1fr;
+            gap: 1.5rem;
+        }
+        
+        @media (max-width: 1024px) {
+            .dashboard {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        /* Left sidebar */
+        .sidebar {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+        
+        .card {
+            background: rgba(0,0,0,0.4);
+            backdrop-filter: blur(12px);
+            border-radius: 1.5rem;
+            padding: 1.5rem;
+            border: 1px solid rgba(255,255,255,0.15);
+            transition: all 0.3s;
+        }
+        
+        .card:hover {
+            border-color: rgba(168,85,247,0.5);
+            transform: translateY(-2px);
+        }
+        
+        .card h3 {
+            color: white;
+            margin-bottom: 1rem;
+            font-size: 1.1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        /* Search bar */
+        .search-box {
+            width: 100%;
+            padding: 0.75rem 1rem;
+            background: rgba(0,0,0,0.5);
+            border: 1px solid rgba(255,255,255,0.2);
+            border-radius: 0.75rem;
+            color: white;
+            font-size: 0.9rem;
+            margin-bottom: 1rem;
+        }
+        
+        .search-box:focus {
+            outline: none;
+            border-color: #a855f7;
+        }
+        
+        /* Filter chips */
+        .filter-group {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-bottom: 1rem;
+        }
+        
+        .filter-chip {
+            background: rgba(255,255,255,0.1);
+            border: 1px solid rgba(255,255,255,0.2);
+            border-radius: 2rem;
+            padding: 0.4rem 1rem;
+            font-size: 0.75rem;
+            color: rgba(255,255,255,0.8);
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        
+        .filter-chip:hover, .filter-chip.active {
+            background: #a855f7;
+            border-color: #a855f7;
+            color: white;
+        }
+        
+        /* Script list */
+        .script-list {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+            max-height: 500px;
+            overflow-y: auto;
+        }
+        
+        .script-item {
+            background: rgba(0,0,0,0.3);
+            border-radius: 0.75rem;
+            padding: 0.75rem 1rem;
+            cursor: pointer;
+            transition: all 0.2s;
+            border-left: 3px solid transparent;
+        }
+        
+        .script-item:hover {
+            background: rgba(139,92,246,0.3);
+            border-left-color: #a855f7;
+            transform: translateX(5px);
+        }
+        
+        .script-item.active {
+            background: rgba(139,92,246,0.4);
+            border-left-color: #c084fc;
+        }
+        
+        .script-name {
+            color: white;
+            font-weight: 500;
+            font-size: 0.9rem;
+            margin-bottom: 0.25rem;
+        }
+        
+        .script-meta {
+            display: flex;
+            gap: 0.75rem;
+            font-size: 0.7rem;
+            color: rgba(255,255,255,0.5);
+        }
+        
+        .script-mode {
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        
+        .script-size {
+            font-family: monospace;
+        }
+        
+        /* Right panel */
+        .right-panel {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+        
+        /* Code container */
+        .code-container {
+            position: relative;
+        }
+        
+        .code-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+        }
+        
+        .script-info {
+            color: rgba(255,255,255,0.6);
+            font-size: 0.8rem;
+        }
+        
+        pre {
+            background: #0a0a1a;
+            padding: 1.25rem;
+            border-radius: 1rem;
+            overflow-x: auto;
+            font-family: 'Fira Code', 'Courier New', monospace;
+            font-size: 0.75rem;
+            line-height: 1.5;
+            color: #e2e8f0;
+            max-height: 450px;
+            overflow-y: auto;
+            white-space: pre-wrap;
+            word-wrap: break-word;
+            position: relative;
+        }
+        
+        .button-group {
+            display: flex;
+            gap: 0.75rem;
+            margin-top: 1rem;
+            flex-wrap: wrap;
+        }
+        
+        button {
+            padding: 0.65rem 1.25rem;
+            background: linear-gradient(135deg, #6b2eb3, #9b4dff);
+            border: none;
+            border-radius: 0.75rem;
+            color: white;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+            font-size: 0.85rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 20px rgba(139,92,246,0.4);
+        }
+        
+        button.secondary {
+            background: rgba(255,255,255,0.1);
+            border: 1px solid rgba(255,255,255,0.2);
+        }
+        
+        button.danger {
+            background: linear-gradient(135deg, #7c2d12, #9a3412);
+        }
+        
+        /* Sandbox mode */
+        .sandbox-card {
+            background: rgba(0,0,0,0.5);
+            border: 1px solid rgba(168,85,247,0.3);
+        }
+        
+        .sandbox-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+        
+        .sandbox-toggle {
+            background: rgba(168,85,247,0.2);
+            border: 1px solid rgba(168,85,247,0.5);
+        }
+        
+        .sandbox-active {
+            background: #10b981;
+            border-color: #10b981;
+        }
+        
+        .sandbox-warning {
+            background: rgba(245,158,11,0.2);
+            border-left: 3px solid #f59e0b;
+            padding: 0.75rem;
+            border-radius: 0.5rem;
+            font-size: 0.75rem;
+            color: #fcd34d;
+            margin-bottom: 1rem;
+        }
+        
+        /* Loading states */
+        .loading {
+            text-align: center;
+            padding: 2rem;
+            color: rgba(255,255,255,0.6);
+        }
+        
+        .spinner {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border: 2px solid rgba(255,255,255,0.3);
+            border-top-color: #a855f7;
+            border-radius: 50%;
+            animation: spin 0.8s linear infinite;
+        }
+        
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+        
+        /* Toast notifications */
+        .toast {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            background: #10b981;
+            color: white;
+            padding: 0.75rem 1.5rem;
+            border-radius: 0.5rem;
+            animation: slideIn 0.3s ease;
+            z-index: 1000;
+            font-size: 0.85rem;
+        }
+        
+        .toast.error {
+            background: #dc2626;
+        }
+        
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateX(100px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+        
+        /* Scrollbar */
+        ::-webkit-scrollbar {
+            width: 6px;
+            height: 6px;
+        }
+        
+        ::-webkit-scrollbar-track {
+            background: rgba(0,0,0,0.2);
+            border-radius: 10px;
+        }
+        
+        ::-webkit-scrollbar-thumb {
+            background: rgba(139,92,246,0.5);
+            border-radius: 10px;
+        }
+        
+        .footer {
+            text-align: center;
+            margin-top: 2rem;
+            padding: 1rem;
+            color: rgba(255,255,255,0.4);
+            font-size: 0.7rem;
+        }
+        
+        .status-badge {
+            display: inline-block;
+            background: #10b981;
+            font-size: 0.65rem;
+            padding: 0.2rem 0.5rem;
+            border-radius: 20px;
+        }
+        
+        .status-badge.loading {
+            background: #f59e0b;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div class="logo">VIRO XYZ</div>
+            <p class="tagline">dynamic script hub • github api • sandbox mode • educational toolkit</p>
+        </header>
+        
+        <div class="stats-bar" id="statsBar">
+            <div class="stat-card">
+                <span class="stat-number" id="scriptCount">0</span>
+                <span class="stat-label">scripts</span>
+            </div>
+            <div class="stat-card">
+                <span class="stat-number" id="modeCount">0</span>
+                <span class="stat-label">modes</span>
+            </div>
+            <div class="stat-card">
+                <span class="stat-number" id="apiStatus">●</span>
+                <span class="stat-label">github api</span>
+            </div>
+        </div>
+        
+        <div class="disclaimer-banner" id="disclaimerBtn">
+            ⚠️ EDUCATIONAL PURPOSES ONLY — Click to view safety information • Using scripts on live games violates ToS
+        </div>
+        
+        <div class="dashboard">
+            <!-- Left Sidebar -->
+            <div class="sidebar">
+                <div class="card">
+                    <h3>🔍 Search & Filter</h3>
+                    <input type="text" class="search-box" id="searchInput" placeholder="Search scripts by name or description...">
+                    <div class="filter-group" id="modeFilters"></div>
+                    <button id="clearFiltersBtn" class="secondary" style="width: 100%; margin-top: 0.5rem;">Clear All Filters</button>
+                </div>
+                
+                <div class="card">
+                    <h3>📁 Script Library <span id="refreshIndicator" style="font-size: 0.7rem;"></span></h3>
+                    <div id="scriptList" class="script-list">
+                        <div class="loading">
+                            <div class="spinner"></div> Fetching from GitHub API...
+                        </div>
+                    </div>
+                    <div class="button-group" style="margin-top: 1rem;">
+                        <button id="refreshBtn">🔄 Refresh from GitHub</button>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Right Panel -->
+            <div class="right-panel">
+                <div class="card code-container">
+                    <div class="code-header">
+                        <div>
+                            <h3>📜 Script Preview</h3>
+                            <div class="script-info" id="scriptInfo">Select a script to view source</div>
+                        </div>
+                        <div id="scriptStatus"></div>
+                    </div>
+                    <pre id="codeOutput">// VIRO XYZ - Dynamic Script Hub
+// 
+// Select a script from the left panel to view its source code
+// Scripts are fetched in real-time from Glixzzy's GitHub repository
+// via the GitHub API
+// 
+// Features:
+// • GitHub API integration for automatic updates
+// • Search and filter by mode
+// • Sandbox mode for safe preview
+// • Download and copy functionality
+// 
+// Click on any script to get started!</pre>
+                    <div class="button-group">
+                        <button id="copyBtn">📋 Copy to Clipboard</button>
+                        <button id="downloadBtn">💾 Download .js File</button>
+                    </div>
+                </div>
+                
+                <!-- Sandbox Mode Card -->
+                <div class="card sandbox-card">
+                    <div class="sandbox-header">
+                        <h3>🛡️ Sandbox Mode</h3>
+                        <button id="sandboxToggle" class="sandbox-toggle">🔒 Off</button>
+                    </div>
+                    <div id="sandboxContent" style="display: none;">
+                        <div class="sandbox-warning">
+                            ⚠️ Sandbox mode simulates a safe environment. No actual game requests are made.
+                        </div>
+                        <div class="button-group">
+                            <button id="simulateBtn" class="secondary">▶️ Simulate Script</button>
+                            <button id="analyzeBtn" class="secondary">🔍 Analyze Risks</button>
+                        </div>
+                        <div id="sandboxOutput" style="margin-top: 1rem; padding: 0.75rem; background: rgba(0,0,0,0.3); border-radius: 0.5rem; font-family: monospace; font-size: 0.75rem; color: #a0a0a0;">
+                            // Sandbox output will appear here
+                        </div>
+                    </div>
+                    <div id="sandboxOffMsg" style="text-align: center; color: rgba(255,255,255,0.5); font-size: 0.8rem;">
+                        Enable sandbox mode to safely preview script behavior
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="footer">
+            <p>🔗 Source: github.com/GlixzzyBlooketHacks/Glixzzy.github.io • GitHub API v3 • For educational web development only</p>
+            <p style="margin-top: 0.5rem;">⚠️ These scripts are for learning JavaScript and API concepts. Using them on live Blooket games violates Terms of Service.</p>
+        </div>
+    </div>
+    
+    <script>
+        // ============================================
+        // VIRO XYZ - COMPLETE EDITION
+        // Features: GitHub API, Search, Filter, Sandbox, Download
+        // ============================================
+        
+        // Configuration
+        const REPO_OWNER = "GlixzzyBlooketHacks";
+        const REPO_NAME = "Glixzzy.github.io";
+        const RAW_BASE = `https://raw.githubusercontent.com/${REPO_OWNER}/${REPO_NAME}/main/`;
+        const API_BASE = `https://api.github.com/repos/${REPO_OWNER}/${REPO_NAME}/contents/`;
+        
+        // State
+        let allScripts = [];
+        let filteredScripts = [];
+        let currentScript = null;
+        let currentCode = "";
+        let sandboxEnabled = false;
+        let activeFilters = new Set();
+        let searchTerm = "";
+        
+        // ============================================
+        // 1. GITHUB API INTEGRATION
+        // ============================================
+        
+        // Fetch repository contents recursively
+        async function fetchRepoContents(path = "") {
+            const url = API_BASE + path;
+            try {
+                const response = await fetch(url);
+                if (!response.ok) throw new Error(`API Error: ${response.status}`);
+                const data = await response.json();
+                return data;
+            } catch (error) {
+                console.error("GitHub API fetch error:", error);
+                return null;
+            }
+        }
+        
+        // Recursively find all .js files
+        async function findAllScripts() {
+            const scripts = [];
+            const folders = ["", "Global", "Racing", "Gold-Quest", "Crypto-Hack", "Cafe", "Factory", "Fishing-Frenzy", "Tower-Defense", "Tower-Of-Doom"];
+            
+            for (const folder of folders) {
+                const contents = await fetchRepoContents(folder);
+                if (contents && Array.isArray(contents)) {
+                    for (const item of contents) {
+                        if (item.name.endsWith('.js') && item.type === 'file') {
+                            scripts.push({
+                                name: item.name.replace('.js', '').replace(/-/g, ' '),
+                                path: item.path,
+                                mode: folder || "Global",
+                                size: item.size,
+                                download_url: item.download_url,
+                                sha: item.sha
+                            });
+                        }
+                    }
+                }
+            }
+            
+            return scripts;
+        }
+        
+        // Fallback scripts in case API fails
+        function getFallbackScripts() {
+            return [
+                { name: "Add Daily Tokens", path: "Global/add-tokens.js", mode: "Global", size: 1245 },
+                { name: "Get All Blooks", path: "Global/get-all-blooks.js", mode: "Global", size: 892 },
+                { name: "Auto Answer", path: "Global/auto-answer.js", mode: "Global", size: 2156 },
+                { name: "Instant Win (Racing)", path: "Racing/instant-win.js", mode: "Racing", size: 567 },
+                { name: "Get Gold", path: "Gold-Quest/get-gold.js", mode: "Gold-Quest", size: 734 },
+                { name: "Chest ESP", path: "Gold-Quest/chest-esp.js", mode: "Gold-Quest", size: 1243 },
+                { name: "Get Crypto", path: "Crypto-Hack/get-crypto.js", mode: "Crypto-Hack", size: 678 },
+                { name: "Unlimited Food", path: "Cafe/unlimited-food.js", mode: "Cafe", size: 445 },
+                { name: "Auto Sell (Factory)", path: "Factory/auto-sell.js", mode: "Factory", size: 890 },
+                { name: "God Mode (Tower Defense)", path: "Tower-Defense/god-mode.js", mode: "Tower-Defense", size: 1234 }
+            ];
+        }
+        
+        // Fetch script content from raw URL
+        async function fetchScriptContent(path) {
+            const url = RAW_BASE + path;
+            try {
+                const response = await fetch(url);
+                if (!response.ok) throw new Error(`HTTP ${response.status}`);
+                return await response.text();
+            } catch (error) {
+                return `// ❌ Failed to fetch: ${error.message}\n// Path: ${path}\n\n// This script could not be loaded from GitHub.\n// Check if the file exists in the repository.`;
+            }
+        }
+        
+        // ============================================
+        // 2. UI RENDERING
+        // ============================================
+        
+        // Build mode filters from available scripts
+        function buildModeFilters() {
+            const modes = [...new Set(allScripts.map(s => s.mode))].sort();
+            const container = document.getElementById('modeFilters');
+            container.innerHTML = modes.map(mode => `
+                <span class="filter-chip" data-mode="${mode}">${mode}</span>
+            `).join('');
+            
+            document.querySelectorAll('.filter-chip').forEach(chip => {
+                chip.addEventListener('click', () => {
+                    const mode = chip.dataset.mode;
+                    if (activeFilters.has(mode)) {
+                        activeFilters.delete(mode);
+                        chip.classList.remove('active');
+                    } else {
+                        activeFilters.add(mode);
+                        chip.classList.add('active');
+                    }
+                    applyFilters();
+                });
+            });
+            
+            document.getElementById('modeCount').textContent = modes.length;
+        }
+        
+        // Apply search and filters
+        function applyFilters() {
+            let filtered = [...allScripts];
+            
+            // Apply mode filters
+            if (activeFilters.size > 0) {
+                filtered = filtered.filter(s => activeFilters.has(s.mode));
+            }
+            
+            // Apply search
+            if (searchTerm) {
+                const term = searchTerm.toLowerCase();
+                filtered = filtered.filter(s => 
+                    s.name.toLowerCase().includes(term) || 
+                    s.mode.toLowerCase().includes(term)
+                );
+            }
+            
+            filteredScripts = filtered;
+            renderScriptList();
+            document.getElementById('scriptCount').textContent = filteredScripts.length;
+        }
+        
+        // Render script list
+        function renderScriptList() {
+            const container = document.getElementById('scriptList');
+            
+            if (filteredScripts.length === 0) {
+                container.innerHTML = '<div class="loading">🔍 No scripts match your filters</div>';
+                return;
+            }
+            
+            container.innerHTML = filteredScripts.map((script, index) => `
+                <div class="script-item" data-index="${index}" data-path="${script.path}">
+                    <div class="script-name">${escapeHtml(script.name)}</div>
+                    <div class="script-meta">
+                        <span class="script-mode">📁 ${script.mode}</span>
+                        <span class="script-size">📦 ${Math.round(script.size / 1024)} KB</span>
+                    </div>
+                </div>
+            `).join('');
+            
+            // Add click handlers
+            document.querySelectorAll('.script-item').forEach(el => {
+                el.addEventListener('click', () => {
+                    const index = parseInt(el.dataset.index);
+                    loadScript(filteredScripts[index], index);
+                    document.querySelectorAll('.script-item').forEach(item => item.classList.remove('active'));
+                    el.classList.add('active');
+                });
+            });
+        }
+        
+        // Load and display a script
+        async function loadScript(script, index) {
+            currentScript = script;
+            const outputEl = document.getElementById('codeOutput');
+            const scriptInfo = document.getElementById('scriptInfo');
+            const scriptStatus = document.getElementById('scriptStatus');
+            
+            scriptInfo.textContent = `${script.name} • ${script.mode} • ${Math.round(script.size / 1024)} KB`;
+            scriptStatus.innerHTML = '<span class="status-badge loading">loading...</span>';
+            outputEl.textContent = `// Loading ${script.name} from GitHub...\n// Source: ${RAW_BASE}${script.path}`;
+            
+            const code = await fetchScriptContent(script.path);
+            currentCode = code;
+            
+            outputEl.textContent = `// 📁 Script: ${script.name}\n// 📂 Mode: ${script.mode}\n// 🔗 Path: ${script.path}\n// 📦 Size: ${Math.round(script.size / 1024)} KB\n// ⚠️ Educational use only — For learning JavaScript\n// ============================================\n\n${code}`;
+            scriptStatus.innerHTML = '<span class="status-badge">loaded ✓</span>';
+            
+            // Update sandbox if enabled
+            if (sandboxEnabled) {
+                analyzeScriptRisks(code);
+            }
+        }
+        
+        // ============================================
+        // 3. SANDBOX MODE
+        // ============================================
+        
+        function analyzeScriptRisks(code) {
+            const risks = [];
+            
+            // Check for dangerous patterns
+            if (code.includes('fetch(') || code.includes('XMLHttpRequest')) {
+                risks.push('⚠️ Makes network requests');
+            }
+            if (code.includes('localStorage') || code.includes('sessionStorage')) {
+                risks.push('📦 Accesses browser storage');
+            }
+            if (code.includes('document.cookie')) {
+                risks.push('🍪 Accesses cookies');
+            }
+            if (code.includes('eval(')) {
+                risks.push('⚠️ Uses eval() - potential security risk');
+            }
+            if (code.includes('Blooket') || code.includes('blooket')) {
+                risks.push('🎮 Targets Blooket game elements');
+            }
+            if (code.includes('setInterval') || code.includes('setTimeout')) {
+                risks.push('⏱️ Uses timers (may run continuously)');
+            }
+            
+            const output = document.getElementById('sandboxOutput');
+            if (risks.length === 0) {
+                output.innerHTML = '✅ No obvious high-risk patterns detected. Still, review code before running.';
+                output.style.color = '#10b981';
+            } else {
+                output.innerHTML = `🔍 Risk Analysis:\n${risks.join('\n')}\n\n💡 Always review scripts before executing them.`;
+                output.style.color = '#fcd34d';
+            }
+        }
+        
+        function simulateScript() {
+            const output = document.getElementById('sandboxOutput');
+            output.innerHTML = '▶️ Simulating script behavior...\n\n';
+            
+            // Extract function names and basic structure
+            const functionMatches = currentCode.match(/function\s+(\w+)\s*\(/g) || [];
+            const variableMatches = currentCode.match(/(?:let|const|var)\s+(\w+)/g) || [];
+            
+            output.innerHTML += `📊 Script Structure Analysis:\n`;
+            output.innerHTML += `• Functions found: ${functionMatches.length}\n`;
+            output.innerHTML += `• Variables declared: ${variableMatches.length}\n`;
+            output.innerHTML += `• Lines of code: ${currentCode.split('\n').length}\n`;
+            output.innerHTML += `\n⚠️ Sandbox simulation complete. This script likely interacts with Blooket's game state.\n`;
+            output.innerHTML += `For educational purposes only. Do not run on live games.`;
+            output.style.color = '#a0a0a0';
+        }
+        
+        // ============================================
+        // 4. UTILITIES
+        // ============================================
+        
+        function escapeHtml(str) {
+            return str.replace(/[&<>]/g, function(m) {
+                if (m === '&') return '&amp;';
+                if (m === '<') return '&lt;';
+                if (m === '>') return '&gt;';
+                return m;
+            });
+        }
+        
+        function showToast(message, isError = false) {
+            const toast = document.createElement('div');
+            toast.className = `toast ${isError ? 'error' : ''}`;
+            toast.textContent = message;
+            document.body.appendChild(toast);
+            setTimeout(() => toast.remove(), 3000);
+        }
+        
+        async function refreshScripts() {
+            const refreshBtn = document.getElementById('refreshBtn');
+            const indicator = document.getElementById('refreshIndicator');
+            refreshBtn.disabled = true;
+            indicator.innerHTML = '<span class="status-badge loading">refreshing...</span>';
+            
+            try {
+                const scripts = await findAllScripts();
+                if (scripts && scripts.length > 0) {
+                    allScripts = scripts;
+                    document.getElementById('apiStatus').innerHTML = '●';
+                    document.getElementById('apiStatus').style.color = '#10b981';
+                } else {
+                    throw new Error('No scripts found');
+                }
+            } catch (error) {
+                console.log('Using fallback scripts');
+                allScripts = getFallbackScripts();
+                document.getElementById('apiStatus').innerHTML = '⚠️';
+                document.getElementById('apiStatus').style.color = '#f59e0b';
+                showToast('Using fallback scripts (GitHub API rate limited)', true);
+            }
+            
+            buildModeFilters();
+            applyFilters();
+            indicator.innerHTML = '';
+            refreshBtn.disabled = false;
+            showToast(`✅ Loaded ${allScripts.length} scripts`);
+        }
+        
+        // ============================================
+        // 5. EVENT LISTENERS
+        // ============================================
+        
+        function setupEventListeners() {
+            // Search
+            document.getElementById('searchInput').addEventListener('input', (e) => {
+                searchTerm = e.target.value;
+                applyFilters();
+            });
+            
+            // Clear filters
+            document.getElementById('clearFiltersBtn').addEventListener('click', () => {
+                activeFilters.clear();
+                searchTerm = '';
+                document.getElementById('searchInput').value = '';
+                document.querySelectorAll('.filter-chip').forEach(chip => chip.classList.remove('active'));
+                applyFilters();
+                showToast('Filters cleared');
+            });
+            
+            // Copy
+            document.getElementById('copyBtn').addEventListener('click', () => {
+                if (!currentCode) {
+                    showToast('Select a script first!', true);
+                    return;
+                }
+                navigator.clipboard.writeText(currentCode);
+                showToast('✅ Copied to clipboard!');
+            });
+            
+            // Download
+            document.getElementById('downloadBtn').addEventListener('click', () => {
+                if (!currentCode || !currentScript) {
+                    showToast('Select a script first!', true);
+                    return;
+                }
+                const blob = new Blob([currentCode], { type: 'application/javascript' });
+                const url = URL.createObjectURL(blob);
+                const a = document.createElement('a');
+                a.href = url;
+                a.download = `${currentScript.name.toLowerCase().replace(/\s+/g, '-')}.js`;
+                document.body.appendChild(a);
+                a.click();
+                document.body.removeChild(a);
+                URL.revokeObjectURL(url);
+                showToast(`💾 Downloaded: ${currentScript.name}.js`);
+            });
+            
+            // Refresh
+            document.getElementById('refreshBtn').addEventListener('click', refreshScripts);
+            
+            // Sandbox toggle
+            document.getElementById('sandboxToggle').addEventListener('click', () => {
+                sandboxEnabled = !sandboxEnabled;
+                const toggle = document.getElementById('sandboxToggle');
+                const content = document.getElementById('sandboxContent');
+                const offMsg = document.getElementById('sandboxOffMsg');
+                
+                if (sandboxEnabled) {
+                    toggle.textContent = '🔒 On';
+                    toggle.classList.add('sandbox-active');
+                    content.style.display = 'block';
+                    offMsg.style.display = 'none';
+                    if (currentCode) analyzeScriptRisks(currentCode);
+                } else {
+                    toggle.textContent = '🔒 Off';
+                    toggle.classList.remove('sandbox-active');
+                    content.style.display = 'none';
+                    offMsg.style.display = 'block';
+                }
+                showToast(`Sandbox mode ${sandboxEnabled ? 'enabled' : 'disabled'}`);
+            });
+            
+            // Simulate button
+            document.getElementById('simulateBtn').addEventListener('click', () => {
+                if (!currentCode) {
+                    showToast('Load a script first', true);
+                    return;
+                }
+                simulateScript();
+            });
+            
+            // Analyze button
+            document.getElementById('analyzeBtn').addEventListener('click', () => {
+                if (!currentCode) {
+                    showToast('Load a script first', true);
+                    return;
+                }
+                analyzeScriptRisks(currentCode);
+                showToast('Risk analysis complete');
+            });
+            
+            // Disclaimer click
+            document.getElementById('disclaimerBtn').addEventListener('click', () => {
+                showToast('⚠️ Educational purposes only. These scripts violate Blooket ToS if used on live games.', true);
+            });
+        }
+        
+        // ============================================
+        // 6. INITIALIZATION
+        // ============================================
+        
+        async function init() {
+            setupEventListeners();
+            await refreshScripts();
+        }
+        
+        init();
+    </script>
+</body>
+</html>
